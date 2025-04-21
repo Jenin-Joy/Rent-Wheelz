@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>District Registration</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color:rgb(138, 167, 196);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Wrapper for the form and tables */
+        form {
+            background-color: #34495E;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ECF0F1;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #2C3E50;
+        }
+
+        th {
+            background-color: #1ABC9C;
+            color: white;
+        }
+
+        td {
+            background-color: #34495E;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #2C3E50;
+        }
+
+        /* Input and Button Styles */
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #2C3E50;
+            border-radius: 5px;
+            background-color: #ECF0F1;
+            color: #2C3E50;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #1ABC9C;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #16A085;
+        }
+
+        /* Links Styling */
+        a {
+            color: #1ABC9C;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #16A085;
+        }
+    </style>
+</head>
+<body>
+
+    <form method="POST">
+        {% csrf_token %}
+        <h2>District Registration</h2>
+
+        <!-- District Input Table -->
+        <table>
+            <tr>
+                <td><label for="district_name">District</label></td>
+                <td><input type="text" id="district_name" value="{{dist.district_name}}" name="dist1" required /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Add" name="dist" />
+                </td>
+            </tr>
+        </table>
+
+        <!-- District List Table -->
+        <table>
+            <tr>
+                <th></th>
+                <th>District</th>
+                <th colspan="2">Action</th>
+            </tr>
+            {% for i in district %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.district_name }}</td>
+                <td><a href="{% url 'Admin:deletedistrict' i.id %}">Delete</a></td>
+                <td><a href="{% url 'Admin:editdistrict' i.id %}">Edit</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+
+</body>
+</html>

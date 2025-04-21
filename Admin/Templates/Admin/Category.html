@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Registration</title>
+
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color:rgb(138, 167, 196);
+            color: #ECF0F1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Form Container */
+        form {
+            background-color: #34495E;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #34495E;
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Navigation Links Container */
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #1ABC9C;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #2C3E50;
+        }
+
+        th {
+            background-color: #16A085;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #34495E;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #2C3E50;
+        }
+
+        /* Hover effect for rows */
+        tr:hover td {
+            background-color: #1ABC9C;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Navigation Links Styling */
+        .nav-container a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #2980B9;
+            padding: 15px 25px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 1.2em;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .nav-container a:hover {
+            background-color: #1ABC9C;
+            transform: scale(1.05);
+        }
+
+        .nav-container a:active {
+            background-color: #16A085;
+        }
+
+        /* Input and Button Styles */
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #ECF0F1;
+            color: #2C3E50;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #16A085;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1ABC9C;
+        }
+
+        /* Links Styling */
+        a {
+            color: #16A085;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #1ABC9C;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 10px;
+            }
+
+            .nav-container a {
+                width: 80%;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            input[type="submit"], input[type="text"] {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <form method="POST">
+        {% csrf_token %}
+        <h2>Category Registration</h2>
+
+        <!-- Category Input Table -->
+        <table>
+            <tr>
+                <td><label for="category_name">Category</label></td>
+                <td><input type="text" id="category_name" value="{{cat.Category_name}}" name="txt_cat2" required /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Add" name="txt_cat1" />
+                </td>
+            </tr>
+        </table>
+
+        <!-- Category List Table -->
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Category</th>
+                <th colspan="2">Action</th>
+            </tr>
+            {% for i in Category %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.Category_name }}</td>
+                <td><a href="{% url 'Admin:deletecat' i.id %}">Delete</a></td>
+                <td><a href="{% url 'Admin:editcat' i.id %}">Edit</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+
+</body>
+</html>
